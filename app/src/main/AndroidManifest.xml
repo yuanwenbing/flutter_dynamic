@@ -4,6 +4,7 @@
     package="com.yuan.dynamic">
 
     <application
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,10 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.yuan.dynamic.ThirdActivity" />
-        <activity android:name="com.yuan.dynamic.SecondActivity" />
-        <activity android:name="com.yuan.dynamic.FirstActivity" />
-        <activity android:name="com.yuan.dynamic.MainActivity">
+        <activity android:name=".FourActivity" />
+        <activity android:name=".ThirdActivity" />
+        <activity
+            android:name=".SecondActivity"
+            android:process=":remote1"
+            />
+        <activity
+            android:name=".FirstActivity"
+            android:process=":remote0"/>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

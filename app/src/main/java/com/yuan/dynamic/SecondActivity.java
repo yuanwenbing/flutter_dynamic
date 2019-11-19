@@ -3,6 +3,7 @@ package com.yuan.dynamic;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
@@ -29,10 +30,15 @@ public class SecondActivity extends AppCompatActivity {
         boolean needReplace = PluginManager.isNeedReplace(this, "libapp2.so");
         if (needReplace) {
             PluginManager.replaceSoFile(this, "libapp2.so");
-//            Utils.restartApp(this);
-//        }else{
-            FlutterView flutterView = Flutter.createView(this, getLifecycle(), "Android");
-            setContentView(flutterView);
         }
+
+        FlutterView flutterView = Flutter.createView(this, getLifecycle(), "Android");
+        setContentView(flutterView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Process.killProcess(Process.myPid());
     }
 }

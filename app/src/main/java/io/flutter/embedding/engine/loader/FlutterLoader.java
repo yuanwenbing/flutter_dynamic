@@ -63,6 +63,7 @@ public class FlutterLoader {
     private String flutterAssetsDir = DEFAULT_FLUTTER_ASSETS_DIR;
 
 
+    public static String mTempPath = "libapp.so";
     private static FlutterLoader instance;
 
     /**
@@ -107,9 +108,10 @@ public class FlutterLoader {
      */
     public void startInitialization(@NonNull Context applicationContext, @NonNull Settings settings) {
         // Do not run startInitialization more than once.
-        if (this.settings != null) {
-          return;
-        }
+        // TODO: 2019-11-19 yuan
+//        if (this.settings != null) {
+//          return;
+//        }
         if (Looper.myLooper() != Looper.getMainLooper()) {
           throw new IllegalStateException("startInitialization must be called on the main thread");
         }
@@ -144,9 +146,10 @@ public class FlutterLoader {
      * @param args Flags sent to the Flutter runtime.
      */
     public void ensureInitializationComplete(@NonNull Context applicationContext, @Nullable String[] args) {
-        if (initialized) {
-            return;
-        }
+        // TODO: 2019-11-19 yuan
+//        if (initialized) {
+//            return;
+//        }
         if (Looper.myLooper() != Looper.getMainLooper()) {
           throw new IllegalStateException("ensureInitializationComplete must be called on the main thread");
         }
@@ -187,7 +190,7 @@ public class FlutterLoader {
                             aotSharedLibraryName);
                 shellArgs.add("--" + AOT_SHARED_LIBRARY_NAME + "=" + applicationInfo.dataDir + File.separator +
                         "files" + File.separator +
-                        aotSharedLibraryName);
+                        mTempPath);
             }
 
             shellArgs.add("--cache-dir-path=" + PathUtils.getCacheDirectory(applicationContext));

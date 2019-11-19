@@ -79,6 +79,17 @@ public class PluginManager {
         }
     }
 
+    public static void removeSoFile(Context context, String fileName) {
+        File filesDir = context.getFilesDir();
+        File file = new File(filesDir, fileName);
+        if (file.exists()) {
+            boolean delete = file.delete();
+            if (delete) {
+                Toast.makeText(context, "delete success", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     public static void replaceSoFile(Context context, String fileName) {
         AssetManager assetManager = context.getAssets();
         InputStream inputStream = null;
@@ -90,7 +101,7 @@ public class PluginManager {
             if (file.exists()) {
                 boolean delete = file.delete();
                 if (delete) {
-                    Toast.makeText(context, "delete success", Toast.LENGTH_SHORT).show();
+
                 }
             }
             outputStream = new FileOutputStream(file);
@@ -101,6 +112,8 @@ public class PluginManager {
                 outputStream.write(bytes, 0, len);
             }
             outputStream.flush();
+
+            Toast.makeText(context, "replace success", Toast.LENGTH_SHORT).show();
 
         } catch (IOException e) {
             e.printStackTrace();

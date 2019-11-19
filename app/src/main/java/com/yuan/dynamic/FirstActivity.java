@@ -2,18 +2,21 @@ package com.yuan.dynamic;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Process;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import io.flutter.embedding.engine.FlutterEngineCache;
 import io.flutter.facade.Flutter;
 import io.flutter.view.FlutterView;
 
 public class FirstActivity extends AppCompatActivity {
 
 
-    public static void open(Context context) {
+    public static void open(Context context, int type) {
         Intent intent = new Intent();
+        intent.putExtra("type", type);
         intent.setClass(context, FirstActivity.class);
         context.startActivity(intent);
     }
@@ -21,24 +24,26 @@ public class FirstActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ActionBar supportActionBar = getSupportActionBar();
         if (supportActionBar != null) {
             supportActionBar.hide();
         }
-        boolean needReplace = PluginManager.isNeedReplace(this, "libapp1.so");
+
+        String fileName =  getIntent().getIntExtra("type", 0) == 0 ? "libapp1.so" : "libapp2.so";
+
+        boolean needReplace = PluginManager.isNeedReplace(this, fileName);
         if (needReplace) {
-            PluginManager.replaceSoFile(this, "libapp1.so");
-//            Utils.restartApp(this);
-//        }else{
-            FlutterView flutterView = Flutter.createView(this, getLifecycle(), "Android");
-            setContentView(flutterView);
+            PluginManager.replaceSoFile(this, fileName);
         }
+        FlutterView flutterView = Flutter.createView(this, getLifecycle(), "Android");
+        setContentView(flutterView);
+
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Process.killProcess(Process.myPid());
     }
 }

@@ -15,10 +15,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         if (view.getId() == R.id.first)
-            FirstActivity.open(this);
+            FirstActivity.open(this, 0);
         else if (view.getId() == R.id.second)
-            SecondActivity.open(this);
+            FirstActivity.open(this, 1);
         else if (view.getId() == R.id.third)
             ThirdActivity.open(this);
+        else if (view.getId() == R.id.four)
+            FourActivity.open(this);
     }
 }
