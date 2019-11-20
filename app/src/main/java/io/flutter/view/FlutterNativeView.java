@@ -12,10 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.util.Log;
 
-import com.yuan.dynamic.BuildConfig;
-
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 
@@ -109,26 +106,9 @@ public class FlutterNativeView implements BinaryMessenger {
         }
         assertAttached();
 
-        AssetManager assetManager =
-                assetManager(mContext.getFilesDir() + File.separator + "res.apk");
+        String assetPath = mContext.getFilesDir() + File.separator + "res.apk";
+        AssetManager assetManager = generateAssetManager(assetPath);
 
-        try {
-            String[] flutter_assets = assetManager.list("flutter_assets");
-            if(flutter_assets != null) {
-                Log.d(TAG, "flutter_assets.length:" + flutter_assets.length);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            String[] flutter_assets = assetManager.list("Tencent");
-            for (String flutter_asset : flutter_assets) {
-                if (BuildConfig.DEBUG) Log.d("AAAAA", flutter_asset);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         if (applicationIsRunning)
             throw new AssertionError(
                     "This Flutter engine instance is already running an application");
@@ -142,28 +122,17 @@ public class FlutterNativeView implements BinaryMessenger {
         applicationIsRunning = true;
     }
 
-    private AssetManager assetManager(String skinPath) {
+    private AssetManager generateAssetManager(String assetPath) {
         AssetManager assetManager = null;
         try {
             assetManager = AssetManager.class.newInstance();
-            try {
-                Method addAssetPath = assetManager.getClass().getMethod("addAssetPath",
-                        String.class);
-                addAssetPath.invoke(assetManager, skinPath);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Resources superRes = mContext.getResources();
-            Resources resources = new Resources(assetManager, superRes.getDisplayMetrics(),
-                    superRes.getConfiguration());
-            return resources.getAssets();
+            Method addAssetPath = assetManager.getClass().getMethod("addAssetPath", String.class);
+            addAssetPath.invoke(assetManager, assetPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return assetManager;
     }
-
 
 
     public boolean isApplicationRunning() {
