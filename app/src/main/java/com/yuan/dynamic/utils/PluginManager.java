@@ -1,4 +1,4 @@
-package com.yuan.dynamic;
+package com.yuan.dynamic.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;

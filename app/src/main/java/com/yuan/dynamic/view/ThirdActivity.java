@@ -1,18 +1,18 @@
-package com.yuan.dynamic;
+package com.yuan.dynamic.view;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.WindowManager;
 
-import io.flutter.app.FlutterFragmentActivity;
-import io.flutter.view.FlutterMain;
+import com.yuan.dynamic.utils.PluginManager;
+
+import io.flutter.app.FlutterActivity;
 import io.flutter.view.FlutterNativeView;
 import io.flutter.view.FlutterView;
 
-public class ThirdActivity extends FlutterFragmentActivity {
+public class ThirdActivity extends FlutterActivity {
 
     public static void open(Context context) {
         Intent intent = new Intent();
@@ -22,8 +22,6 @@ public class ThirdActivity extends FlutterFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         boolean needReplace = PluginManager.isNeedReplace(this, "libapp1.so");
         if (needReplace) {
             PluginManager.replaceSoFile(this, "libapp1.so");

@@ -1,14 +1,14 @@
-package com.yuan.dynamic;
+package com.yuan.dynamic.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.WindowManager;
 
+import com.yuan.dynamic.utils.PluginManager;
+
 import io.flutter.app.FlutterFragmentActivity;
-import io.flutter.embedding.engine.loader.FlutterLoader;
 import io.flutter.view.FlutterNativeView;
 import io.flutter.view.FlutterView;
 

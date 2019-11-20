@@ -12,14 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".FourActivity" />
-        <activity android:name=".ThirdActivity" />
+        <activity android:name=".view.FourActivity" />
+        <activity android:name=".view.ThirdActivity" />
         <activity
-            android:name=".SecondActivity"
+            android:name=".view.SecondActivity"
             android:process=":remote1"
             />
         <activity
-            android:name=".FirstActivity"
+            android:name=".view.FirstActivity"
             android:process=":remote0"/>
         <activity android:name=".MainActivity">
             <intent-filter>

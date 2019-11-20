@@ -4,6 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.yuan.dynamic.utils.PluginManager;
+import com.yuan.dynamic.view.FirstActivity;
+import com.yuan.dynamic.view.FourActivity;
+import com.yuan.dynamic.view.ThirdActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
