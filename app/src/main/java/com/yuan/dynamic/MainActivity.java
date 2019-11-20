@@ -5,9 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.yuan.dynamic.utils.PluginManager;
-import com.yuan.dynamic.view.FirstActivity;
-import com.yuan.dynamic.view.FourActivity;
-import com.yuan.dynamic.view.ThirdActivity;
+import com.yuan.dynamic.view.FlutterContainerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,13 +17,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        if (view.getId() == R.id.first)
-            FirstActivity.open(this, 0);
-        else if (view.getId() == R.id.second)
-            FirstActivity.open(this, 1);
-        else if (view.getId() == R.id.third)
-            ThirdActivity.open(this);
-        else if (view.getId() == R.id.four)
-            FourActivity.open(this);
+        if (view.getId() == R.id.first) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", 0);
+            FlutterContainerActivity.open(this, bundle);
+        } else if (view.getId() == R.id.second) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("type", 1);
+            FlutterContainerActivity.open(this, bundle);
+        }
     }
 }

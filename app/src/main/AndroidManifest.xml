@@ -12,15 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.FourActivity" />
-        <activity android:name=".view.ThirdActivity" />
+
         <activity
-            android:name=".view.SecondActivity"
-            android:process=":remote1"
+            android:name=".view.FlutterContainerActivity"
+            android:process=":flutter"
             />
-        <activity
-            android:name=".view.FirstActivity"
-            android:process=":remote0"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
