@@ -16,9 +16,9 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
-        Log.d("Applications", "Process.myPid():" + Process.myPid());
-        String processName = getProcessName();
-        if (BuildConfig.DEBUG) Log.d("Applications", processName);
+//        Log.d("Applications", "Process.myPid():" + Process.myPid());
+//        String processName = getProcessName();
+//        if (BuildConfig.DEBUG) Log.d("Applications", processName);
         super.onCreate();
     }
 
