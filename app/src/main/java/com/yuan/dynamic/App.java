@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import io.flutter.view.FlutterMain;
+
 /**
  * Created by yuan on 2019-11-19.
  * Email:yuanwb@yiche.com
@@ -16,6 +18,8 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
+        FlutterMain.startInitialization(this);
+        FlutterMain.ensureInitializationComplete(this, null);
 //        Log.d("Applications", "Process.myPid():" + Process.myPid());
 //        String processName = getProcessName();
 //        if (BuildConfig.DEBUG) Log.d("Applications", processName);

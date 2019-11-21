@@ -4,11 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.yuan.dynamic.utils.FileUtil;
-import com.yuan.dynamic.utils.ZipUtil;
 import com.yuan.dynamic.view.FlutterContainerActivity;
-
-import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 

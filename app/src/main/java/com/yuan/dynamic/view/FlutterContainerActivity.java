@@ -3,25 +3,22 @@ package com.yuan.dynamic.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Process;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.yuan.dynamic.R;
 import com.yuan.dynamic.net.DownloadTask;
 import com.yuan.dynamic.utils.FileUtil;
 
-import java.io.File;
-import java.io.IOException;
-
 import io.flutter.facade.Flutter;
 import io.flutter.view.FlutterView;
 
 public class FlutterContainerActivity extends AppCompatActivity {
 
+    private FlutterView mFlutterView;
 
     private ProgressDialog mProgressDialog;
 
@@ -49,25 +46,24 @@ public class FlutterContainerActivity extends AppCompatActivity {
         DownloadTask downloadTask = new DownloadTask(new DownloadTask.DownloadListener() {
             @Override
             public void onStart() {
-                if(mProgressDialog != null) {
+                if (mProgressDialog != null) {
                     mProgressDialog.show();
                 }
             }
 
             @Override
             public void onProgress(int progress) {
-                if(mProgressDialog != null) {
+                if (mProgressDialog != null) {
                     mProgressDialog.setProgress(progress);
                     if (progress == 100) {
                         mProgressDialog.setMessage("UNZIPING...");
                     }
-
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
-                if(mProgressDialog != null) {
+                if (mProgressDialog != null) {
                     e.printStackTrace();
                     mProgressDialog.dismiss();
                 }
@@ -75,7 +71,7 @@ public class FlutterContainerActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess() {
-                if(mProgressDialog != null) {
+                if (mProgressDialog != null) {
                     mProgressDialog.dismiss();
                     Toast.makeText(FlutterContainerActivity.this, "Load Success", Toast.LENGTH_SHORT).show();
                     setFlutterContentView();
@@ -96,8 +92,8 @@ public class FlutterContainerActivity extends AppCompatActivity {
 //            if (needReplace) {
 //                FileUtil.replaceSoFile(this, fileName);
 //            }
-//            FlutterView flutterView = Flutter.createView(this, getLifecycle(), "Android");
-//            setContentView(flutterView);
+//            FlutterView mFlutterView = Flutter.createView(this, getLifecycle(), "Android");
+//            setContentView(mFlutterView);
 //        } else {
 //            Toast.makeText(this, "start failure!", Toast.LENGTH_SHORT).show();
 //            finish();
@@ -105,14 +101,23 @@ public class FlutterContainerActivity extends AppCompatActivity {
     }
 
     private void setFlutterContentView() {
-        FlutterView flutterView = Flutter.createView(this, getLifecycle(), "Android");
-        setContentView(flutterView);
+        mFlutterView = Flutter.createView(this, getLifecycle(), "Android");
+        setContentView(mFlutterView);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mFlutterView != null) {
+            mFlutterView.popRoute();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Process.killProcess(Process.myPid());
     }
+
 }
