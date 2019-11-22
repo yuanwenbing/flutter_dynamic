@@ -1,7 +1,9 @@
 package com.yuan.dynamic.view;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Process;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 import com.yuan.dynamic.R;
 import com.yuan.dynamic.net.DownloadTask;
 import com.yuan.dynamic.utils.FileUtil;
+
+import java.util.Objects;
 
 import io.flutter.facade.Flutter;
 import io.flutter.view.FlutterView;
@@ -41,7 +45,6 @@ public class FlutterContainerActivity extends AppCompatActivity {
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setMessage("LOADING....");
         mProgressDialog.setMax(100);
-        mProgressDialog.show();
 
         DownloadTask downloadTask = new DownloadTask(new DownloadTask.DownloadListener() {
             @Override
@@ -63,9 +66,15 @@ public class FlutterContainerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
+                e.printStackTrace();
                 if (mProgressDialog != null) {
-                    e.printStackTrace();
                     mProgressDialog.dismiss();
+                    new AlertDialog.Builder(FlutterContainerActivity.this).setTitle("提示").setMessage("下载或解压失败，请重试！").setPositiveButton("确定",
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                                finish();
+                            }).show();
+
                 }
             }
 
@@ -78,8 +87,8 @@ public class FlutterContainerActivity extends AppCompatActivity {
                 }
             }
         });
-
-        String url = getIntent().getExtras().getString("url");
+//
+        String url = Objects.requireNonNull(getIntent().getExtras()).getString("url");
         downloadTask.execute(url, FileUtil.getAarPath(this));
 
         setContentView(R.layout.activity_first);

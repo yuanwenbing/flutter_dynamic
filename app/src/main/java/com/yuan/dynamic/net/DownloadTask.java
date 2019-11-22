@@ -27,6 +27,9 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
 
     @Override
     protected void onPreExecute() {
+        if (mListener != null) {
+            mListener.onStart();
+        }
         super.onPreExecute();
     }
 
@@ -87,11 +90,8 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
             replaceAssetFile(endDir, filePath);
 
         } catch (Exception e) {
-            if (mListener != null) {
-                mListener.onFailure(e);
-                return false;
-            }
             e.printStackTrace();
+            return false;
         }
 
         return true;
@@ -124,8 +124,13 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
     protected void onPostExecute(Boolean bool) {
         super.onPostExecute(bool);
         if (mListener != null) {
-            mListener.onSuccess();
+            if (bool) {
+                mListener.onSuccess();
+            } else {
+                mListener.onFailure(new Exception("download failure!"));
+            }
         }
+
     }
 
 
