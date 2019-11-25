@@ -1,7 +1,6 @@
 package com.yuan.dynamic.net;
 
 import android.os.AsyncTask;
-import android.webkit.DownloadListener;
 
 import com.yuan.dynamic.utils.FileUtil;
 import com.yuan.dynamic.utils.ZipUtil;
@@ -27,10 +26,10 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
 
     @Override
     protected void onPreExecute() {
+        super.onPreExecute();
         if (mListener != null) {
             mListener.onStart();
         }
-        super.onPreExecute();
     }
 
     @Override
@@ -49,19 +48,18 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
         try {
             url = new URL(urlStr);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setConnectTimeout(4000);
-            connection.setDoInput(true);
-            connection.setDoOutput(true);
-            connection.setRequestMethod("GET");
-            connection.setRequestProperty("Charset", "utf-8");
-            connection.connect();
             String urlFilePath = connection.getURL().getFile();
             String fileName = urlFilePath.substring(urlFilePath.lastIndexOf(File.separatorChar) + 1);
             String subPath = fileName.substring(0, fileName.lastIndexOf("."));
             File file = new File(filePath + File.separator + subPath);
 
-            if (!file.exists()) {
-                file.mkdirs();
+            if (!file.exists() && file.mkdirs()) {
+                connection.setConnectTimeout(4000);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Charset", "utf-8");
+                connection.connect();
                 FileOutputStream outputStream = new FileOutputStream(new File(file, fileName));
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {

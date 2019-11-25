@@ -3,7 +3,6 @@ package com.yuan.dynamic.view;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Process;
@@ -20,6 +19,12 @@ import java.util.Objects;
 import io.flutter.facade.Flutter;
 import io.flutter.view.FlutterView;
 
+/**
+ * Created by yuan on 2019-11-19.
+ * Email:yuanwb@yiche.com
+ * <p>
+ * Flutter 容器
+ */
 public class FlutterContainerActivity extends AppCompatActivity {
 
     private FlutterView mFlutterView;
