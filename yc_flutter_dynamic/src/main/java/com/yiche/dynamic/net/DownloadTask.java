@@ -87,6 +87,8 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
                     replaceAssetFile(endDir, filePath);
                     return true;
                 }
+            }else {
+                return true;
             }
 
 
