@@ -78,21 +78,24 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
                     outputStream.close();
                     inputStream.close();
                     bfi.close();
+
+                    publishProgress(100);
+                    String endDir = new File(file, fileName).getAbsolutePath();
+
+                    unzip(endDir, file.getAbsolutePath());
+                    replaceSoFile(file.getAbsolutePath(), filePath);
+                    replaceAssetFile(endDir, filePath);
+                    return true;
                 }
             }
-            publishProgress(100);
-            String endDir = new File(file, fileName).getAbsolutePath();
 
-            unzip(endDir, file.getAbsolutePath());
-            replaceSoFile(file.getAbsolutePath(), filePath);
-            replaceAssetFile(endDir, filePath);
 
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
 
-        return true;
+        return false;
     }
 
     private void unzip(String file, String path) throws Exception {
