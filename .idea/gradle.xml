@@ -10,7 +10,6 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/yc_flutter_dynamic" />
-            <option value="$PROJECT_DIR$/yc_flutter_plugin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

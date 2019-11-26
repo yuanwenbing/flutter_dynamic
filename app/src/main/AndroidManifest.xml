@@ -17,10 +17,6 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
 
-        <activity
-            android:name="com.yiche.dynamic.view.FlutterContainerActivity"
-            android:process=":flutter"
-            />
         <activity android:name="com.yiche.dynamic.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

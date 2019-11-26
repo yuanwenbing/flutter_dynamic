@@ -1,22 +1,17 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion "29.0.1"
-
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
-
-        ndk {
-            abiFilters "armeabi"//, "armeabi-v7a"//, "x86"//, "x86_64"
-        }
     }
 
     buildTypes {
@@ -45,5 +40,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(path: ':yc_flutter_plugin')
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+    implementation 'io.flutter.plugins.pathprovider:path_provider_release:1.0@aar'
+    implementation 'com.tekartik.sqflite:sqflite_release:1.0@aar'
+    implementation 'io.flutter.plugins.webviewflutter:webview_flutter_release:1.0@aar'
+
 }

@@ -19,6 +19,7 @@ import java.util.Objects;
 import io.flutter.facade.Flutter;
 import io.flutter.view.FlutterView;
 
+
 /**
  * Created by yuan on 2019-11-19.
  * Email:yuanwb@yiche.com

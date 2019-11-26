@@ -1,1 +1,1 @@
-include ':app', ':yc_flutter_dynamic', ':yc_flutter_plugin'
+include ':app', ':yc_flutter_dynamic'

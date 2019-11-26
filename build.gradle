@@ -3,6 +3,7 @@
 buildscript {
     
     repositories {
+        maven{ url 'http://172.20.30.83:8081/repository/maven-releases'}
         google()
         jcenter()
     }
@@ -17,6 +18,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven{ url 'http://172.20.30.83:8081/repository/maven-releases'}
         google()
         jcenter()
     }

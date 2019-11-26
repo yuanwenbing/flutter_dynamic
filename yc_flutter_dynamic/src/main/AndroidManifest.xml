@@ -1,2 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yiche.yc_flutter_dynamic" />
+    package="com.yiche.yc_flutter_dynamic">
+
+    <application>
+        <activity
+            android:name="com.yiche.dynamic.view.FlutterContainerActivity"
+            android:process=":flutter"
+            />
+    </application>
+
+</manifest>

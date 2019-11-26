@@ -103,7 +103,8 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
     }
 
     private void replaceSoFile(String path, String target) {
-        String arm = "armeabi-v7a"; // arm64-v8a
+//        String arm = "armeabi-v7a"; // arm64-v8a
+        String arm = "arm64-v8a";
         FileUtil.replaceSoFile(new File(path + File.separator + "jni" + File.separator + arm + File.separator +
                 "libapp.so").getAbsolutePath(), target);
     }

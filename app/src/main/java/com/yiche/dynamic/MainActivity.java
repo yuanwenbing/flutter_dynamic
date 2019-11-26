@@ -32,9 +32,10 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString("url", getHost() + "/flutter_release-1.2.aar");
             bundle.putInt("type", 1);
             FlutterContainerActivity.open(this, bundle);
-        }else if (view.getId() == R.id.fourth) {
+        } else if (view.getId() == R.id.fourth) {
+        } else if (view.getId() == R.id.fifth) {
             Bundle bundle = new Bundle();
-            bundle.putString("url", getHost() + "/app-release.apk");
+            bundle.putString("url", getHost() + "/flutter_lottery-1.0.aar");
             bundle.putInt("type", 1);
             FlutterContainerActivity.open(this, bundle);
         }
