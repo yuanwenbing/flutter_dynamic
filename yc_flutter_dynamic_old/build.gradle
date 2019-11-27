@@ -36,4 +36,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation "android.arch.lifecycle:common-java8:1.1.1"
+    implementation 'io.flutter.plugins.pathprovider:path_provider_release:1.0@aar'
+    implementation 'com.tekartik.sqflite:sqflite_release:1.0@aar'
+    implementation 'io.flutter.plugins.webviewflutter:webview_flutter_release:1.0@aar'
 }

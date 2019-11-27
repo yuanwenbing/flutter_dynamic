@@ -82,12 +82,13 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
                 }
             } else {
                 publishProgress(100);
-                String endDir = new File(file, fileName).getAbsolutePath();
-
-                unzip(endDir, file.getAbsolutePath());
-                replaceSoFile(file.getAbsolutePath(), filePath);
-                replaceAssetFile(endDir, filePath);
             }
+
+            String endDir = new File(file, fileName).getAbsolutePath();
+
+            unzip(endDir, file.getAbsolutePath());
+            replaceSoFile(file.getAbsolutePath(), filePath);
+            replaceAssetFile(endDir, filePath);
 
             return true;
 
