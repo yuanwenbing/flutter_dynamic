@@ -5,6 +5,8 @@ import android.content.res.AssetManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.yiche.yc_flutter_dynamic.BuildConfig;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -110,10 +112,10 @@ public class FileUtil {
             File file = new File(target).getParentFile();
             file = new File(file, "libapp.so");
 
-//            if(DiffUtil.check(file, sourceFile)){
-//                if (BuildConfig.DEBUG) Log.d("FileUtil", "SoFile is same");
-//                return;
-//            }
+            if(DiffUtil.check(file, sourceFile)){
+                if (BuildConfig.DEBUG) Log.d("FileUtil", "SoFile is same");
+                return;
+            }
             inputStream = new FileInputStream(sourceFile);
             if (file.exists()) {
                 boolean delete = file.delete();
@@ -156,10 +158,10 @@ public class FileUtil {
             File file = new File(target).getParentFile();
             file = new File(file, "res.apk");
 
-//            if(DiffUtil.check(file, sourceFile)){
-//                if (BuildConfig.DEBUG) Log.d("FileUtil", "AssetFile is same");
-//                return;
-//            }
+            if(DiffUtil.check(file, sourceFile)){
+                if (BuildConfig.DEBUG) Log.d("FileUtil", "AssetFile is same");
+                return;
+            }
             inputStream = new FileInputStream(sourceFile);
 
             if (file.exists()) {

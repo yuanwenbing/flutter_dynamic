@@ -18,6 +18,9 @@ public class DiffUtil {
      */
     public static boolean check(File file1, File file2) {
         boolean isSame = false;
+        if (!file1.exists()||!file2.exists()){
+            return isSame;
+        }
         String img1Md5 = getMD5(file1);
         String img2Md5 = getMD5(file2);
         if (img1Md5.equals(img2Md5)) {
