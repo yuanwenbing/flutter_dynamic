@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.yiche.dynamic.view.FlutterContainerActivity;
+import com.yuan.yc_flutter_dynamic_old.view.FlutterContainerActivity;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -79,7 +79,6 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
                     inputStream.close();
                     bfi.close();
 
-                    publishProgress(100);
                     String endDir = new File(file, fileName).getAbsolutePath();
 
                     unzip(endDir, file.getAbsolutePath());
@@ -87,7 +86,8 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
                     replaceAssetFile(endDir, filePath);
                     return true;
                 }
-            }else {
+            } else {
+                publishProgress(100);
                 return true;
             }
 
