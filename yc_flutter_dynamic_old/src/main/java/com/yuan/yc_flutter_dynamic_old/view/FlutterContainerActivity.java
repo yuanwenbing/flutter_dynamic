@@ -55,14 +55,14 @@ public class FlutterContainerActivity extends AppCompatActivity {
         DownloadTask downloadTask = new DownloadTask(new DownloadTask.DownloadListener() {
             @Override
             public void onStart() {
-                if (mProgressDialog != null) {
-                    mProgressDialog.show();
-                }
+
             }
 
             @Override
             public void onProgress(int progress) {
+
                 if (mProgressDialog != null) {
+                    mProgressDialog.show();
                     mProgressDialog.setProgress(progress);
                     if (progress == 100) {
                         mProgressDialog.setMessage("UNZIPING...");

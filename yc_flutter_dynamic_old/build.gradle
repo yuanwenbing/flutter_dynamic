@@ -39,4 +39,6 @@ dependencies {
     implementation 'io.flutter.plugins.pathprovider:path_provider_release:1.0@aar'
     implementation 'com.tekartik.sqflite:sqflite_release:1.0@aar'
     implementation 'io.flutter.plugins.webviewflutter:webview_flutter_release:1.0@aar'
+    implementation 'io.github.ponnamkarthik.toast.fluttertoast:fluttertoast_release:1.0@aar'
+
 }

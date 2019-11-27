@@ -3,7 +3,9 @@ package com.yuan.yc_flutter_dynamic_old.net;
 import android.os.AsyncTask;
 
 
+import com.yuan.yc_flutter_dynamic_old.BuildConfig;
 import com.yuan.yc_flutter_dynamic_old.utils.FileUtil;
+import com.yuan.yc_flutter_dynamic_old.utils.IOUtils;
 import com.yuan.yc_flutter_dynamic_old.utils.ZipUtil;
 
 import java.io.BufferedInputStream;
@@ -46,6 +48,10 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
         String filePath = strings[1];
         URL url;
         HttpURLConnection connection;
+
+        FileOutputStream fos = null;
+        InputStream is = null;
+        BufferedInputStream bis = null;
         try {
             url = new URL(urlStr);
             connection = (HttpURLConnection) url.openConnection();
@@ -61,49 +67,41 @@ public class DownloadTask extends AsyncTask<String, Integer, Boolean> {
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Charset", "utf-8");
                 connection.connect();
-                FileOutputStream outputStream = new FileOutputStream(new File(file, fileName));
+                fos = new FileOutputStream(new File(file, fileName));
                 int responseCode = connection.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
-                    InputStream inputStream = connection.getInputStream();
+                    is = connection.getInputStream();
                     int contentLength = connection.getContentLength();
-                    BufferedInputStream bfi = new BufferedInputStream(inputStream);
+                    bis = new BufferedInputStream(is);
                     int len;
                     int total = 0;
                     byte[] bytes = new byte[1024];
-                    while ((len = bfi.read(bytes)) != -1) {
+                    while ((len = bis.read(bytes)) != -1) {
                         total += len;
-                        outputStream.write(bytes, 0, len);
+                        fos.write(bytes, 0, len);
                         float progress = total * 100f / contentLength;
                         publishProgress((int) progress);
                     }
-                    outputStream.close();
-                    inputStream.close();
-                    bfi.close();
                 }
-            } else {
-                publishProgress(100);
             }
 
             String endDir = new File(file, fileName).getAbsolutePath();
 
-            unzip(endDir, file.getAbsolutePath());
+            ZipUtil.UnZipFolder(endDir, file.getAbsolutePath());
             replaceSoFile(file.getAbsolutePath(), filePath);
             replaceAssetFile(endDir, filePath);
 
             return true;
 
         } catch (Exception e) {
-            e.printStackTrace();
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace();
+            }
             return false;
+        } finally {
+            IOUtils.closeIO(fos, is, bis);
         }
 
-    }
-
-    private void unzip(String file, String path) throws Exception {
-        File filePath = new File(path);
-        if (!filePath.exists() || filePath.list().length <= 1) {
-            ZipUtil.UnZipFolder(file, path);
-        }
     }
 
     private void replaceSoFile(String path, String target) {
