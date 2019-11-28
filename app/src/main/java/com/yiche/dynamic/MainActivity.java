@@ -1,16 +1,11 @@
 package com.yiche.dynamic;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.yuan.yc_flutter_dynamic_old.FJournal;
 import com.yuan.yc_flutter_dynamic_old.view.FlutterContainerActivity;
-
-import java.io.File;
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             FlutterContainerActivity.open(this, bundle);
         } else if (view.getId() == R.id.fourth) {
             Bundle bundle = new Bundle();
-            bundle.putString("url", getHost() + "/flutter_release-1.3.zip");
+            bundle.putString("url", getHost() + "/flutter_release-1.3.aar");
             bundle.putInt("type", 1);
             FlutterContainerActivity.open(this, bundle);
         } else if (view.getId() == R.id.fifth) {
