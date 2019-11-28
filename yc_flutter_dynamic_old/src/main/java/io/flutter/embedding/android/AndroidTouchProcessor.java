@@ -127,7 +127,7 @@ public class AndroidTouchProcessor {
       }
     }
 
-    // Verify that the packet is the expected size.
+    // FJournal that the packet is the expected size.
     if (packet.position() % (POINTER_DATA_FIELD_COUNT * BYTES_PER_FIELD) != 0) {
       throw new AssertionError("Packet position is not on field boundary");
     }

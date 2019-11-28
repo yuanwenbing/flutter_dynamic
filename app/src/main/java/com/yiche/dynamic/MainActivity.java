@@ -1,12 +1,16 @@
 package com.yiche.dynamic;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.yuan.yc_flutter_dynamic_old.utils.IOUtils;
+import com.yuan.yc_flutter_dynamic_old.FJournal;
 import com.yuan.yc_flutter_dynamic_old.view.FlutterContainerActivity;
+
+import java.io.File;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void onClick(View view) {
@@ -34,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
             bundle.putInt("type", 1);
             FlutterContainerActivity.open(this, bundle);
         } else if (view.getId() == R.id.fourth) {
+            Bundle bundle = new Bundle();
+            bundle.putString("url", getHost() + "/flutter_release-1.3.zip");
+            bundle.putInt("type", 1);
+            FlutterContainerActivity.open(this, bundle);
         } else if (view.getId() == R.id.fifth) {
             Bundle bundle = new Bundle();
             bundle.putString("url", getHost() + "/flutter_lottery-1.0.aar");

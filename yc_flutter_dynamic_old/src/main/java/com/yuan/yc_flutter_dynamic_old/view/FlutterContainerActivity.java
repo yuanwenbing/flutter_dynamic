@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.yuan.yc_flutter_dynamic_old.net.DownloadTask;
+import com.yuan.yc_flutter_dynamic_old.net.FlutterManagerTask;
 import com.yuan.yc_flutter_dynamic_old.utils.FileUtil;
 
 import java.util.Objects;
@@ -49,23 +49,26 @@ public class FlutterContainerActivity extends AppCompatActivity {
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        mProgressDialog.setMessage("LOADING....");
+        mProgressDialog.setMessage("下载中....");
         mProgressDialog.setMax(100);
 
-        DownloadTask downloadTask = new DownloadTask(new DownloadTask.DownloadListener() {
+        FlutterManagerTask downloadTask = new FlutterManagerTask(new FlutterManagerTask.DownloadListener() {
             @Override
             public void onStart() {
-
+                if (mProgressDialog != null) {
+                    mProgressDialog.show();
+                }
             }
 
             @Override
             public void onProgress(int progress) {
-
                 if (mProgressDialog != null) {
                     mProgressDialog.show();
                     mProgressDialog.setProgress(progress);
                     if (progress == 100) {
-                        mProgressDialog.setMessage("UNZIPING...");
+                        mProgressDialog.setMessage("解压中...");
+                    } else if (progress == 101) {
+                        mProgressDialog.setMessage("校验中...");
                     }
                 }
             }
@@ -93,26 +96,9 @@ public class FlutterContainerActivity extends AppCompatActivity {
                 }
             }
         });
-//
         String url = Objects.requireNonNull(getIntent().getExtras()).getString("url");
         downloadTask.execute(url, FileUtil.getAarPath(this));
-
         setContentView(new View(this));
-
-//        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            String fileName = extras.getInt("type", 0) == 0 ? "libapp1.so" : "libapp2.so";
-//
-//            boolean needReplace = FileUtil.isNeedReplace(this, fileName);
-//            if (needReplace) {
-//                FileUtil.replaceSoFile(this, fileName);
-//            }
-//            FlutterView mFlutterView = Flutter.createView(this, getLifecycle(), "Android");
-//            setContentView(mFlutterView);
-//        } else {
-//            Toast.makeText(this, "start failure!", Toast.LENGTH_SHORT).show();
-//            finish();
-//        }
     }
 
     private void setFlutterContentView() {
