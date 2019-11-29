@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by yuan on 2019-11-27.
  * Email:yuanwb@yiche.com
  */
-public class IOUtils {
+public class CloseIoUtils {
     public static void closeIO(Closeable... streams) {
         for (Closeable stream : streams) {
             if (stream != null) {

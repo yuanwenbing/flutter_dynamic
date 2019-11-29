@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.yuan.yc_flutter_dynamic_old.net.FlutterManagerTask;
+import com.yuan.yc_flutter_dynamic_old.task.FlutterManagerTask;
 import com.yuan.yc_flutter_dynamic_old.utils.FileUtil;
 
 import java.util.Objects;
@@ -52,23 +52,27 @@ public class FlutterContainerActivity extends AppCompatActivity {
         mProgressDialog.setMessage("下载中....");
         mProgressDialog.setMax(100);
 
-        FlutterManagerTask downloadTask = new FlutterManagerTask(new FlutterManagerTask.DownloadListener() {
+        FlutterManagerTask managerTask = new FlutterManagerTask(new FlutterManagerTask.DownloadListener() {
             @Override
             public void onStart() {
-                if (mProgressDialog != null) {
-                    mProgressDialog.show();
+                if (!isDestroy()) {
+                    if (mProgressDialog != null) {
+                        mProgressDialog.show();
+                    }
                 }
             }
 
             @Override
             public void onProgress(int progress) {
-                if (mProgressDialog != null) {
-                    mProgressDialog.show();
-                    mProgressDialog.setProgress(progress);
-                    if (progress == 100) {
-                        mProgressDialog.setMessage("解压中...");
-                    } else if (progress == 101) {
-                        mProgressDialog.setMessage("校验中...");
+                if (!isDestroy()) {
+                    if (mProgressDialog != null) {
+                        mProgressDialog.show();
+                        mProgressDialog.setProgress(progress);
+                        if (progress == 100) {
+                            mProgressDialog.setMessage("解压中...");
+                        } else if (progress == 101) {
+                            mProgressDialog.setMessage("校验中...");
+                        }
                     }
                 }
             }
@@ -76,8 +80,12 @@ public class FlutterContainerActivity extends AppCompatActivity {
             @Override
             public void onFailure(Exception e) {
                 e.printStackTrace();
-                if (mProgressDialog != null) {
-                    mProgressDialog.dismiss();
+
+                if (!isDestroy()) {
+                    if (mProgressDialog != null) {
+                        mProgressDialog.dismiss();
+                    }
+
                     new AlertDialog.Builder(FlutterContainerActivity.this).setTitle("提示").setMessage("下载或解压失败，请重试！").setPositiveButton("确定",
                             (dialog, which) -> {
                                 dialog.dismiss();
@@ -89,15 +97,17 @@ public class FlutterContainerActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess() {
-                if (mProgressDialog != null) {
-                    mProgressDialog.dismiss();
+                if (!isDestroy()) {
+                    if (mProgressDialog != null) {
+                        mProgressDialog.dismiss();
+                    }
                     Toast.makeText(FlutterContainerActivity.this, "Load Success", Toast.LENGTH_SHORT).show();
                     setFlutterContentView();
                 }
             }
         });
         String url = Objects.requireNonNull(getIntent().getExtras()).getString("url");
-        downloadTask.execute(url, FileUtil.getAarPath(this));
+        managerTask.execute(url, FileUtil.getAarPath(this));
         setContentView(new View(this));
     }
 
@@ -113,6 +123,10 @@ public class FlutterContainerActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public boolean isDestroy() {
+        return isFinishing();
     }
 
     @Override

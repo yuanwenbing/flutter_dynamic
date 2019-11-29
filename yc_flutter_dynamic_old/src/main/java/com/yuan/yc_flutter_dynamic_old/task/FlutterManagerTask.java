@@ -1,10 +1,11 @@
-package com.yuan.yc_flutter_dynamic_old.net;
+package com.yuan.yc_flutter_dynamic_old.task;
 
 import android.os.AsyncTask;
+import android.support.annotation.UiThread;
 import android.util.Log;
 
+import com.yuan.yc_flutter_dynamic_old.utils.CloseIoUtils;
 import com.yuan.yc_flutter_dynamic_old.utils.FileUtil;
-import com.yuan.yc_flutter_dynamic_old.utils.IOUtils;
 import com.yuan.yc_flutter_dynamic_old.utils.ZipUtil;
 
 import java.io.BufferedInputStream;
@@ -40,8 +41,7 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
         long start = System.currentTimeMillis();
 
         if (strings == null || strings.length != 2) {
-            if (mListener != null)
-                mListener.onFailure(new Exception("arguments error"));
+            Log.d("FlutterManagerTask", "arguments error");
             return false;
         }
 
@@ -139,12 +139,13 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
             e.printStackTrace();
             return false;
         } finally {
-            IOUtils.closeIO(fos, is, bis);
+            CloseIoUtils.closeIO(fos, is, bis);
         }
 
     }
 
     @Override
+    @UiThread
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         if (mListener != null) {
@@ -153,6 +154,7 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
     }
 
     @Override
+    @UiThread
     protected void onPostExecute(Boolean bool) {
         super.onPostExecute(bool);
         if (mListener != null) {
@@ -167,12 +169,16 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
 
 
     public interface DownloadListener {
+        @UiThread
         void onStart();
 
+        @UiThread
         void onProgress(int progress);
 
+        @UiThread
         void onFailure(Exception e);
 
+        @UiThread
         void onSuccess();
 
     }

@@ -3,8 +3,6 @@ package com.yuan.yc_flutter_dynamic_old;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.yuan.yc_flutter_dynamic_old.utils.IOUtils;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +22,8 @@ import io.flutter.BuildConfig;
  * Created by yuan on 2019-11-27.
  * Email:yuanwb@yiche.com
  */
+
+@Deprecated
 public class FJournal {
 
     public static final String DIRTY = "DIRTY";
@@ -140,6 +139,6 @@ public class FJournal {
 
 
     public synchronized void close() {
-//        IOUtils.closeIO(journalWriter, journalReader);
+//        CloseIoUtils.closeIO(journalWriter, journalReader);
     }
 }
