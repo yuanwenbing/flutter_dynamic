@@ -1,9 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yuan.yc_flutter_dynamic_old">
-
-    <application>
-        <activity
-            android:name=".view.FlutterContainerActivity"
-            android:process=":flutter" />
-    </application>
-</manifest>

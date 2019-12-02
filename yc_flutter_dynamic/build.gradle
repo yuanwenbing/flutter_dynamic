@@ -4,6 +4,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
 
+
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 29
@@ -26,12 +27,6 @@ android {
         targetCompatibility 1.8
     }
 
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-
 }
 
 dependencies {
@@ -40,9 +35,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation "android.arch.lifecycle:common-java8:1.1.1"
-    implementation 'io.flutter.plugins.pathprovider:path_provider_release:1.0@aar'
-    implementation 'com.tekartik.sqflite:sqflite_release:1.0@aar'
-    implementation 'io.flutter.plugins.webviewflutter:webview_flutter_release:1.0@aar'
+    implementation 'io.flutter.engine:yc_flutter_engine:1.0.0'
 
 }

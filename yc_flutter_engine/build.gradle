@@ -1,0 +1,73 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+}
+
+//任务名
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //这里的url是nexus中maven-releases的路径，可以点击copy按钮查看复制
+            repository(url: "http://localhost:8081/repository/maven-releases/") {
+                // nexus账号的用户名和密码，我这里没用默认的admin
+                authentication(userName: "admin", password: "admin123")
+            }
+
+            // library的包名
+            pom.groupId = 'io.flutter.engine'
+            // library的项目名
+            pom.artifactId = 'yc_flutter_engine'
+            // library的版本号
+            pom.version = '1.0.0'
+
+//            pom.project {
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation "android.arch.lifecycle:common-java8:1.1.1"
+    implementation 'io.flutter.plugins.pathprovider:path_provider_release:1.0@aar'
+    implementation 'com.tekartik.sqflite:sqflite_release:1.0@aar'
+    implementation 'io.flutter.plugins.webviewflutter:webview_flutter_release:1.0@aar'
+    implementation 'io.github.ponnamkarthik.toast.fluttertoast:fluttertoast_release:1.0@aar'
+}
