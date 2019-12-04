@@ -3,6 +3,7 @@ package com.yuan.yc_flutter_dynamic_old.view;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Process;
@@ -51,6 +52,7 @@ public class FlutterContainerActivity extends AppCompatActivity {
         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressDialog.setMessage("下载中....");
         mProgressDialog.setMax(100);
+        mProgressDialog.setOnCancelListener(dialog -> finish());
 
         FlutterManagerTask managerTask = new FlutterManagerTask(new FlutterManagerTask.DownloadListener() {
             @Override
@@ -66,7 +68,6 @@ public class FlutterContainerActivity extends AppCompatActivity {
             public void onProgress(int progress) {
                 if (!isDestroy()) {
                     if (mProgressDialog != null) {
-                        mProgressDialog.show();
                         mProgressDialog.setProgress(progress);
                         if (progress == 100) {
                             mProgressDialog.setMessage("解压中...");
@@ -86,11 +87,12 @@ public class FlutterContainerActivity extends AppCompatActivity {
                         mProgressDialog.dismiss();
                     }
 
-                    new AlertDialog.Builder(FlutterContainerActivity.this).setTitle("提示").setMessage("下载或解压失败，请重试！").setPositiveButton("确定",
-                            (dialog, which) -> {
-                                dialog.dismiss();
-                                finish();
-                            }).show();
+                            new AlertDialog.Builder(FlutterContainerActivity.this).setTitle("提示").setMessage("下载或解压失败，请重试！").setPositiveButton("确定",
+                                    (dialog, which) -> {
+                                        dialog.dismiss();
+                                        finish();
+                                    }).show();
+
 
                 }
             }

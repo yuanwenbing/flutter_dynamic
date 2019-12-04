@@ -21,6 +21,8 @@ import io.flutter.BuildConfig;
 /**
  * Created by yuan on 2019-11-27.
  * Email:yuanwb@yiche.com
+ *
+ * 以后还需要要启用来校验完整性
  */
 
 @Deprecated

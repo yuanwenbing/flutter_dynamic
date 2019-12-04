@@ -2,7 +2,9 @@ package com.yuan.yc_flutter_dynamic_old.task;
 
 import android.os.AsyncTask;
 import android.support.annotation.UiThread;
+import android.text.PrecomputedText;
 import android.util.Log;
+import android.webkit.DownloadListener;
 
 import com.yuan.yc_flutter_dynamic_old.utils.CloseIoUtils;
 import com.yuan.yc_flutter_dynamic_old.utils.FileUtil;
@@ -66,10 +68,12 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
             File soFile = new File(filePath.getAbsolutePath() + File.separator + "jni" + File.separator + arm + File.separator + "libapp.so");
 
             if (!productFile.exists()) {
-                boolean mkdirs = filePath.mkdirs();
-                if (!mkdirs) {
-                    Log.d("FlutterManagerTask", "mk flutter product failure");
-                    return false;
+                if(!filePath.exists()) {
+                    boolean mkdirs = filePath.mkdirs();
+                    if (!mkdirs) {
+                        Log.d("FlutterManagerTask", "mk flutter product failure");
+                        return false;
+                    }
                 }
                 connection.setConnectTimeout(4000);
                 connection.setDoInput(true);
@@ -126,6 +130,9 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
                     } else {
                         FileUtil.replaceSoFile(soFile.getAbsolutePath(), parentPath);
                     }
+                }else {
+                    productFile.delete();
+                    return false;
                 }
             }
 
