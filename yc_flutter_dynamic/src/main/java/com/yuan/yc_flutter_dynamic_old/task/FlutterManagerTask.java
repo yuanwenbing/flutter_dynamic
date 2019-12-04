@@ -75,7 +75,8 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
                         return false;
                     }
                 }
-                connection.setConnectTimeout(4000);
+                connection.setConnectTimeout(5000);
+                connection.setReadTimeout(5000);
                 connection.setDoInput(true);
                 connection.setDoOutput(true);
                 connection.setRequestMethod("GET");
