@@ -1,4 +1,4 @@
-package com.yuan.yc_flutter_dynamic_old;
+package com.yuan.yc_flutter_dynamic;
 
 import android.content.Context;
 

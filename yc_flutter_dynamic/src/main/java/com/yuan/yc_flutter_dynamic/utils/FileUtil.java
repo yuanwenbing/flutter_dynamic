@@ -1,10 +1,8 @@
-package com.yuan.yc_flutter_dynamic_old.utils;
+package com.yuan.yc_flutter_dynamic.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
-
-import com.yuan.yc_flutter_dynamic_old.BuildConfig;
 
 import java.io.File;
 import java.io.FileInputStream;

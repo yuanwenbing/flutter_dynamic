@@ -1,14 +1,14 @@
-package com.yuan.yc_flutter_dynamic_old.task;
+package com.yuan.yc_flutter_dynamic.task;
 
 import android.os.AsyncTask;
 import android.support.annotation.UiThread;
-import android.text.PrecomputedText;
 import android.util.Log;
 import android.webkit.DownloadListener;
 
-import com.yuan.yc_flutter_dynamic_old.utils.CloseIoUtils;
-import com.yuan.yc_flutter_dynamic_old.utils.FileUtil;
-import com.yuan.yc_flutter_dynamic_old.utils.ZipUtil;
+import com.yuan.yc_flutter_dynamic.BuildConfig;
+import com.yuan.yc_flutter_dynamic.utils.CloseIoUtils;
+import com.yuan.yc_flutter_dynamic.utils.FileUtil;
+import com.yuan.yc_flutter_dynamic.utils.ZipUtil;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -132,14 +132,21 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
                         FileUtil.replaceSoFile(soFile.getAbsolutePath(), parentPath);
                     }
                 }else {
-                    productFile.delete();
+                    boolean delete = productFile.delete();
+                    if (!delete) {
+                        if(BuildConfig.DEBUG) {
+                            Log.d("FlutterManagerTask", "delete failure!");
+                        }
+                    }
                     return false;
                 }
             }
 
             long end = System.currentTimeMillis();
 
-            Log.d("FlutterManagerTask", "end- start:" + (end - start));
+            if(BuildConfig.DEBUG) {
+                Log.d("FlutterManagerTask", "end- start:" + (end - start));
+            }
 
             return true;
 

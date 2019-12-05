@@ -1,4 +1,4 @@
-package com.yuan.yc_flutter_dynamic_old.utils;
+package com.yuan.yc_flutter_dynamic.utils;
 
 import java.io.Closeable;
 import java.io.IOException;

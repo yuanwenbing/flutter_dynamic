@@ -1,9 +1,8 @@
-package com.yuan.yc_flutter_dynamic_old.view;
+package com.yuan.yc_flutter_dynamic.view;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Process;
@@ -12,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.yuan.yc_flutter_dynamic_old.task.FlutterManagerTask;
-import com.yuan.yc_flutter_dynamic_old.utils.FileUtil;
+import com.yuan.yc_flutter_dynamic.task.FlutterManagerTask;
+import com.yuan.yc_flutter_dynamic.utils.FileUtil;
 
 import java.util.Objects;
 
