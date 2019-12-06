@@ -3,9 +3,9 @@ package com.yuan.yc_flutter_dynamic.task;
 import android.os.AsyncTask;
 import android.support.annotation.UiThread;
 import android.util.Log;
-import android.webkit.DownloadListener;
 
 import com.yuan.yc_flutter_dynamic.BuildConfig;
+import com.yuan.yc_flutter_dynamic.task.journa.FJournal;
 import com.yuan.yc_flutter_dynamic.utils.CloseIoUtils;
 import com.yuan.yc_flutter_dynamic.utils.FileUtil;
 import com.yuan.yc_flutter_dynamic.utils.ZipUtil;
@@ -40,6 +40,7 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
     @Override
     protected Boolean doInBackground(String... strings) {
 
+
         long start = System.currentTimeMillis();
 
         if (strings == null || strings.length != 2) {
@@ -67,14 +68,18 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
             File productFile = new File(filePath, fileName);
             File soFile = new File(filePath.getAbsolutePath() + File.separator + "jni" + File.separator + arm + File.separator + "libapp.so");
 
-            if (!productFile.exists()) {
-                if(!filePath.exists()) {
+            FJournal fJournal = FJournal.open(filePath.getAbsolutePath());
+
+            Log.d("FlutterManagerTask", fJournal.read() + "");
+            if (!productFile.exists() || !FJournal.SUCCESS.equals(fJournal.read())) {
+                if (!filePath.exists()) {
                     boolean mkdirs = filePath.mkdirs();
                     if (!mkdirs) {
                         Log.d("FlutterManagerTask", "mk flutter product failure");
                         return false;
                     }
                 }
+                fJournal.write(FJournal.DIRTY);
                 connection.setConnectTimeout(5000);
                 connection.setReadTimeout(5000);
                 connection.setDoInput(true);
@@ -98,11 +103,15 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
                         publishProgress((int) progress);
                     }
                 }
-
+                fJournal.write(FJournal.DOWNLOAD);
                 ZipUtil.UnZipFolder(new File(filePath, fileName).getAbsolutePath(), filePath.getAbsolutePath());
+                fJournal.write(FJournal.UNZIP);
                 publishProgress(101);
                 FileUtil.replaceAssetFile(productFile.getAbsolutePath(), parentPath);
+                fJournal.write(FJournal.REPLACE_ASSETS);
                 FileUtil.replaceSoFile(soFile.getAbsolutePath(), parentPath);
+                fJournal.write(FJournal.REPLACE_SO);
+                fJournal.write(FJournal.SUCCESS);
             } else {
                 // 两者都存在，不用解压
                 publishProgress(101);
@@ -131,10 +140,10 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
                     } else {
                         FileUtil.replaceSoFile(soFile.getAbsolutePath(), parentPath);
                     }
-                }else {
+                } else {
                     boolean delete = productFile.delete();
                     if (!delete) {
-                        if(BuildConfig.DEBUG) {
+                        if (BuildConfig.DEBUG) {
                             Log.d("FlutterManagerTask", "delete failure!");
                         }
                     }
@@ -144,7 +153,7 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
 
             long end = System.currentTimeMillis();
 
-            if(BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 Log.d("FlutterManagerTask", "end- start:" + (end - start));
             }
 
