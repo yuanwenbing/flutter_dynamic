@@ -128,6 +128,7 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
                     } else {
                         FileUtil.replaceAssetFile(productFile.getAbsolutePath(), parentPath);
                     }
+                    fJournal.write(FJournal.REPLACE_ASSETS);
 
                     // so文件
                     File realSoFile = new File(new File(parentPath).getParentFile(), "libapp.so");
@@ -140,13 +141,11 @@ public class FlutterManagerTask extends AsyncTask<String, Integer, Boolean> {
                     } else {
                         FileUtil.replaceSoFile(soFile.getAbsolutePath(), parentPath);
                     }
+
+                    fJournal.write(FJournal.REPLACE_SO);
+                    fJournal.write(FJournal.SUCCESS);
                 } else {
-                    boolean delete = productFile.delete();
-                    if (!delete) {
-                        if (BuildConfig.DEBUG) {
-                            Log.d("FlutterManagerTask", "delete failure!");
-                        }
-                    }
+                    fJournal.write(FJournal.DIRTY);
                     return false;
                 }
             }
